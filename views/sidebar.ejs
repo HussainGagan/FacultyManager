@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/sidenavstyle.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+<div class="header">
+    <div id="main">
+        <button class="openbtn" onclick="openNav()"> <i class="fa fa-bars" ></i></button>
+
+      </div>
+</div>
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa fa-times" ></i></a>
+  <a href="#"><i class="fa fa-user" ></i>My Profile</a>
+  <a href="#"><i class="fa fa-calendar-o" ></i>Add Events</a>
+  <a href="#"><i class="fa fa-calendar-times-o" ></i>
+    Timetable</a>
+  <a href="#"><i class="fa fa-users"></i>Grades of Students</a>
+  <a href="#"><i class="fa fa-lock" ></i>Change Password</a>
+</div>
+
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+
+</body>
+</html>
