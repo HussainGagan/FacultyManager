@@ -57,8 +57,21 @@ app.post("/",function(req,res){
 // })
 
 app.get("/dashboard",function(req,res){
-  res.render("sidebar");
+  res.render("myProfile");
 })
+app.get("/addEvent",function(req,res){
+  res.render("addEvent");
+})
+app.get("/timeTable",function(res,res){
+  res.render("timeTable");
+})
+app.get("/studentFeedback",function(res,res){
+  res.render("studentFeedback");
+})
+app.get("/freeSlot",function(res,res){
+  res.render("freeSlot");
+})
+
 
 app.listen(3000,function(){
   console.log("Server started at port 3000");
