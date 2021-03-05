@@ -1,0 +1,36 @@
+<%- include("partials/admHeader"); -%>
+<div class="addFacultyAdmin">
+<form action="/admFaculty" method="post">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="facAdminEmail">Email</label>
+      <input type="email" class="form-control" name="facAdminEmail" placeholder="Email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="facAdminPass">Password</label>
+      <input type="password" class="form-control" name="facAdminPass" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group" style="margin-bottom:-15px;">
+    <label for="facultyName">Name</label>
+    <input type="text" class="form-control" name="facultyAdminName" placeholder="Faculty Name">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="facRole">Role</label>
+      <input type="text" class="form-control" name="facRole" placeholder="Faculty Role">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="facAdminId">ID</label>
+      <input type="number" class="form-control no" name="facAdminId" placeholder="Faculty ID">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="areaOfInterest">Area 0f Interest</label>
+    <input type="text" class="form-control" name="areaOfInterest" placeholder="Area Of Interest">
+  </div>
+
+  <button type="submit" class="btn btn-primary addFacultyBtn"><i style="font-size:15px;" class="fas fa-plus-circle"></i> Add Faculty</button>
+</form>
+</div>
+<%- include("partials/admFooter"); -%>

@@ -89,9 +89,13 @@ a, a:hover, a:focus {
     background: #fff;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
+/* #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
     background: #6d7fcc;
+} */
+.active{
+  color: #fff;
+  background: #6d7fcc;
 }
 
 
@@ -143,6 +147,7 @@ a.article, a.article:hover {
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
+  overflow-x: hidden;
     width: calc(100% - 250px);
     padding: 10px 10px 40px;
     min-height: 100vh;
@@ -161,6 +166,279 @@ a.article, a.article:hover {
   margin-left: 10px;
   padding-left: 0px;
 }
+
+/* ---------------------------------------------------
+    My profile css
+----------------------------------------------------- */
+#row{
+  margin : 0;
+}
+.col-sm-8{
+  background-color: #fff;
+}
+#My-profile {
+  transform: translateX(50px);
+
+}
+.fon{
+  font-size: 16px;
+}
+.white{
+
+  color: #fff;
+}
+.mclass{
+  color: #404040;
+  font-size: 1em;
+}
+.col-md-10{
+  background-color: #fff;
+}
+.padding {
+    padding: 3rem !important
+}
+
+.user-card-full {
+    overflow: hidden
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border: none;
+    margin-bottom: 30px
+}
+
+.m-r-0 {
+    margin-right: 0px
+}
+
+.m-l-0 {
+    margin-left: 0px
+}
+
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px;
+}
+
+.bg-c-lite-green {
+    background: -webkit-gradient(linear, left top, right top, from(#56ab2f), to(#a8e063));
+    background: linear-gradient(to right, #56ab2f, #a8e063)
+}
+
+.user-profile {
+    padding: 20px 0
+}
+
+.card-block {
+    padding: 1.25rem
+}
+
+.m-b-25 {
+    margin-bottom: 25px
+}
+
+.img-radius {
+    border-radius: 5px
+}
+
+h6 {
+    font-size: 14px
+}
+
+.card .card-block p {
+    line-height: 25px
+}
+
+@media only screen and (min-width: 1400px) {
+    p {
+        font-size: 14px
+    }
+}
+
+.card-block {
+    padding: 1.25rem
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important
+}
+
+.card .card-block p {
+    line-height: 25px
+}
+
+.m-b-10 {
+    margin-bottom: 10px
+}
+
+.text-muted {
+    color: #919aa3 !important
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0
+}
+
+.f-w-600 {
+    font-weight: 600
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.m-t-40 {
+    margin-top: 20px
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important
+}
+
+.m-b-10 {
+    margin-bottom: 10px
+}
+
+.m-t-40 {
+    margin-top: 20px
+}
+
+.user-card-full .social-link li {
+    display: inline-block
+}
+
+.user-card-full .social-link li a {
+    font-size: 20px;
+    margin: 0 10px 0 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+/* ---------------------------------------------------
+    Add Event
+----------------------------------------------------- */
+.btn-primary{
+    transform: translate(20px, -10px);
+    background-color: #5bc0de;
+}
+.Add-Event{
+  transform: translate(-40px,5px);
+}
+.form-control{
+  resize: none;
+  padding: 6px 12px;
+}
+.form-group{
+  padding: 20px;
+}
+.event{
+  /* box-shadow: 0 1px 20px 0 #F0F0F0; */
+  overflow: hidden;
+    padding : 25px;
+    border-radius : 15px;
+    background-color : #F5F5F5;
+    width : 650px;
+    height : 350px;
+    margin : 40px auto;
+}
+
+/* ---------------------------------------------------
+    TIME-TABLE
+----------------------------------------------------- */
+.Time-Table{
+  transform: translate(-20px,-20px);
+}
+.recess-color{
+  font-weight: 600;
+  background-color: #E0E0E0;
+}
+/* top-left border-radius */
+    table tr:first-child th:first-child,
+    table.Info tr:first-child td:first-child {
+        border-top-left-radius: 15px;
+    }
+
+    /* top-right border-radius */
+    table tr:first-child th:last-child,
+    table.Info tr:first-child td:last-child {
+        border-top-right-radius: 15px;
+    }
+
+    /* bottom-left border-radius */
+    table tr:last-child td:last-child {
+        border-bottom-right-radius: 15px;
+    }
+
+    /* bottom-right border-radius */
+    table tr:last-child th:first-child {
+        border-bottom-left-radius: 15px;
+    }
+
+table{
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+table,td,th{
+    border: 1px;
+}
+table{
+    align-items: center;
+  }
+
+tr{background-color: #F5F5F5;}
+
+.time{
+  font-weight: 600;
+}
+
+th{
+    text-align: center;
+    height:50px;
+    width: 115px;
+    padding: 8px;
+    background-color: #C0C0C0;
+    color: black;
+}
+td{
+
+    font-size:13px;
+    height: 50px;
+    width: 100px;
+    text-align: center;
+    padding: 8px;
+}
+
+
+/* ---------------------------------------------------
+    ADMIN
+----------------------------------------------------- */
+.addFacultyAdmin{
+  margin: 0 auto;
+  padding : 2% 3%;
+  background-color: #F5F5F5;
+  border-radius: 15px;
+  width: 50%;
+}
+.addFacultyBtn{
+  transform: translate(150px,-10px);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
 
 /* ---------------------------------------------------

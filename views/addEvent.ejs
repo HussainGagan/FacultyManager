@@ -1,5 +1,21 @@
 <%- include("partials/header"); -%>
-    <div class="Add-Event">
-      Add Event
+<div class="Add-Event">
+  <form class="event">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Event Name</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Event Name">
     </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Event Date</label>
+      <input type="date" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+     <div class="form-group">
+    <label  for="exampleFormControlTextarea1">Event Description</label>
+    <textarea rows="4" cols="70" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+</div>
 <%- include("partials/footer"); -%>
