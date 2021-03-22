@@ -10,8 +10,8 @@
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25"> <img src="img/userProfile.svg" style="width:45%" class="img-radius" alt="User-Profile-Image"> </div>
-                                <h6 class="white fon f-w-600">Name</h6>
-                                <p class="white">Role</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                <h6 class="white fon f-w-600"><%=foundFac.name%></h6>
+                                <p class="white"><%=foundFac.role%></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
                         </div>
                         <div class="col-sm-8">
@@ -20,17 +20,17 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="mclass m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">xyz@gmail.com</h6>
+                                        <h6 class="text-muted f-w-400"><%=foundFac.email%></h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="mclass m-b-10 f-w-600">Phone</p>
-                                        <h6 class="text-muted f-w-400">98979989898</h6>
+                                        <h6 class="text-muted f-w-400"><%=foundFac.phone%></h6>
                                     </div>
                                 </div>
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Area of Interest</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <h6 class="text-muted f-w-400">AI, Machine Learing, Security</h6>
+                                        <h6 class="text-muted f-w-400"><%=foundFac.areaOfInterest%></h6>
                                     </div>
 
                                 </div>

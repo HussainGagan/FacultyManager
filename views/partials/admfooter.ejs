@@ -11,27 +11,58 @@
 <!-- jQuery Custom Scroller CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#sidebar").mCustomScrollbar({
-      theme: "minimal"
-    });
 
-    $('#sidebarCollapse').on('click', function() {
-      $('#sidebar, #content').toggleClass('active');
-      $('.collapse.in').toggleClass('in');
-      $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+      });
+
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
     });
-  });
+    var allCheckBox = document.querySelectorAll(".check");
+    allCheckBox.forEach((checkbox) => {
+
+      checkbox.addEventListener("click", () => {
+        if (checkbox.checked === true) {
+          swal({
+              title : "Are you sure?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                checkbox.form.submit();
+                swal({
+                text: "Succesfully Removed Faculty from the database",
+                icon: "success",
+              });
+              } else {
+                swal("It is safe!");
+                checkbox.checked = false ;
+              }
+            });
+        }
+      });
+
+
+    })
+
   var header = document.getElementById("classActive");
   var btns = header.getElementsByClassName("link");
   for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-  var current = document.getElementsByClassName("active");
-  current[0].className = current[0].className.replace(" active", "");
-  this.className += " active";
-  });
-}
+    btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
 </script>
 </body>
 

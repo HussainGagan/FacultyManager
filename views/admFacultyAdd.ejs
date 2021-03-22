@@ -1,20 +1,34 @@
 <%- include("partials/admHeader"); -%>
 <div class="addFacultyAdmin">
-<form action="/admFaculty" method="post">
-  <div class="form-row">
+  <% if (success) { %>
+  <script type="text/javascript">
+    swal({
+    text: "Succesfully Added Faculty to the database",
+    icon: "success",
+  });
+  </script>
+  <% } %>
+<form action="/admFacultyAdd" method="post">
+  <div class="form-row pdg">
     <div class="form-group col-md-6">
       <label for="facAdminEmail">Email</label>
-      <input type="email" class="form-control" name="facAdminEmail" placeholder="Email">
+      <input type="email" class="form-control" name="facAdminEmail" placeholder="Email" autofocus>
     </div>
     <div class="form-group col-md-6">
       <label for="facAdminPass">Password</label>
       <input type="password" class="form-control" name="facAdminPass" placeholder="Password">
     </div>
   </div>
-  <div class="form-group" style="margin-bottom:-15px;">
+  <div class="form-row">
+  <div class="form-group col-md-6" style="margin-bottom:-15px;">
     <label for="facultyName">Name</label>
     <input type="text" class="form-control" name="facultyAdminName" placeholder="Faculty Name">
   </div>
+  <div class="form-group col-md-6" style="margin-bottom:-15px;">
+    <label for="facPhone">Phone</label>
+    <input type="number" class="form-control" name="facPhone" placeholder="Faculty Phone">
+  </div>
+    </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="facRole">Role</label>

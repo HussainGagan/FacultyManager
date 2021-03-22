@@ -2,6 +2,8 @@ const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const Swal = require("sweetalert2");
+
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}))
@@ -10,6 +12,14 @@ app.set('view engine', 'ejs');
 
 mongoose.connect("mongodb://localhost:27017/facMangDB", {useNewUrlParser : true , useUnifiedTopology: true });
 
+///////// ------------------------- Time-tableSchema ---------------------- //////
+const timeTableSchema = new mongoose.Schema({
+  time : String,
+  subject : String,
+  subLocation : String
+})
+// const TimeTable = mongoose.model("timetable",timeTableSchema);
+
 ///////// ------------------------- Faculty Schema ---------------------- //////
 const facSchema = new mongoose.Schema({
   facId : Number,
@@ -17,8 +27,19 @@ const facSchema = new mongoose.Schema({
   email : String,
   password : String,
   role : String,
-  areaOfInterest : String
+  areaOfInterest : String,
+  phone : Number,
+  Monday : [timeTableSchema],
+  Tuesday : [timeTableSchema],
+  Wednesday : [timeTableSchema],
+  Thursday : [timeTableSchema],
+  Friday : [timeTableSchema]
 })
+//   timeTable : {                     // or alternate schema
+//   monday : [timeTableSchema],
+//   tuesday : [timeTableSchema],
+//   .... continue till friday.
+// }
 const Faculty = mongoose.model("faculty",facSchema);
 
 ///////// ------------------------- Admin Schema ---------------------- //////
@@ -38,15 +59,17 @@ app.get("/",function(res,res){
   res.render("facLogin");
 })
 
+var foundFaculty ; //hold the value of the faculty which loged in.
 app.post("/",function(req,res){
   var lgnFacId = req.body.lgnFacultyId;
   var lgnFacPass = req.body.lgnFacultyPass;
-  Faculty.findOne({facId : lgnFacId}, function(err, foundUser){
+  Faculty.findOne({facId : lgnFacId}, function(err, foundFac){
     if(err){
       console.log(err);
     }else{
-      if(foundUser){
-        if(foundUser.password === lgnFacPass){
+      if(foundFac){
+        if(foundFac.password === lgnFacPass){
+          foundFaculty = foundFac;
           res.redirect("/dashboard");
         }
       }
@@ -73,13 +96,13 @@ app.post("/",function(req,res){
 // })
 
 app.get("/dashboard",function(req,res){
-  res.render("myProfile");
+  res.render("myProfile",{foundFac : foundFaculty});
 })
 app.get("/addEvent",function(req,res){
   res.render("addEvent");
 })
 app.get("/timeTable",function(res,res){
-  res.render("timeTable");
+  res.render("timeTable",{monday : foundFaculty.Monday, tuesday : foundFaculty.Tuesday, wednesday : foundFaculty.Wednesday, thursday : foundFaculty.Thursday, friday : foundFaculty.Friday});
 })
 app.get("/studentFeedback",function(res,res){
   res.render("studentFeedback");
@@ -103,45 +126,100 @@ app.post("/admin",(req,res)=>{
     }else{
       if(foundAdmin){
         if(foundAdmin.password === adminPass){
-          res.render("admFaculty");
+          res.redirect("/admFacultyAdd");
         }
       }
     }
   })
 })
 
-app.get("/admFaculty",function(req,res){
-  res.render("admFaculty");
+var success = false;
+
+app.get("/admFacultyAdd",function(req,res){
+  res.render("admFacultyAdd", {success : success});
+  success = false;
 })
 
-app.post("/admFaculty",function(req,res){
+app.post("/admFacultyAdd",function(req,res){
     var regFacId = req.body.facAdminId;
     var regFacName = req.body.facultyAdminName;
     var regFacEmail = req.body.facAdminEmail;
     var regFacPass = req.body.facAdminPass;
     var regFacAreaOfInterest = req.body.areaOfInterest;
     var regFacRole = req.body.facRole;
+    var regFacPhone = req.body.facPhone;
     const faculty = new Faculty({
         facId : regFacId,
         name : regFacName,
         email : regFacEmail,
         password : regFacPass,
         role  : regFacRole,
-        areaOfInterest : regFacAreaOfInterest
+        areaOfInterest : regFacAreaOfInterest,
+        phone : regFacPhone
       })
       faculty.save(function(err){
         if(!err){
-          console.log("Succesfully added faculty to the database");
-          res.redirect("/admFaculty");
+          success = true ;
+          res.redirect("/admFacultyAdd");
         }
       });
+})
+
+app.get("/admFacultyRmv",function(req,res){
+  Faculty.find({}, function(err, foundFaculties){
+    if(err){
+      console.log(err);
+    } else{
+      res.render("admFacultyRmv", {listOfFac : foundFaculties});
+    }
+
+  })
+
+})
+
+app.post("/admFacultyRmv",function(req,res){
+  var checked = req.body.checkbox;
+  console.log(checked);
+  Faculty.deleteOne({facId : checked},function(err){
+    if(err){
+      console.log(err);
+    }else{
+      console.log("Succesfully Deleted");
+      res.redirect("/admFacultyRmv");
+    }
+  })
 })
 
 app.get("/admStudent",function(req,res){
   res.render("admStudent");
 })
+
+var successTimeTable = false;
 app.get("/admTimeTable",function(res,res){
-  res.render("admTimeTable");
+  Faculty.find({}, 'name', function(err, foundFacultiesName){
+    if(err){
+      console.log(err);
+    } else{
+      res.render("admTimeTable", {listOfFacName : foundFacultiesName, successTimeTable : successTimeTable});
+      successTimeTable = false;
+    }
+
+  })
+})
+app.post("/admTimeTable",function(req,res){
+  const {facName, day, time, subject, subLocation} = req.body;
+  Faculty.updateOne({name : facName},{$push : {[day] : {  //instead of timetable if using that new schema [day]
+    time : time,
+    subject : subject,
+    subLocation : subLocation
+  }}},function(err){
+    if(err){
+      console.log(err);
+    } else{
+      successTimeTable = true;
+      res.redirect("/admTimeTable");
+    }
+  })
 })
 
 

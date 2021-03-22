@@ -3,6 +3,9 @@
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+/* .font{
+  font-size: 14px;
+} */
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -89,14 +92,14 @@ a, a:hover, a:focus {
     background: #fff;
 }
 
-/* #sidebar ul li.active > a, a[aria-expanded="true"] {
+#sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
     background: #6d7fcc;
-} */
-.active{
+}
+/* .active{
   color: #fff;
   background: #6d7fcc;
-}
+} */
 
 
 a[data-toggle="collapse"] {
@@ -148,6 +151,7 @@ a.article, a.article:hover {
 ----------------------------------------------------- */
 #content {
   overflow-x: hidden;
+  overflow-y : hidden;
     width: calc(100% - 250px);
     padding: 10px 10px 40px;
     min-height: 100vh;
@@ -327,7 +331,7 @@ h6 {
 /* ---------------------------------------------------
     Add Event
 ----------------------------------------------------- */
-.btn-primary{
+.addEventBtn{
     transform: translate(20px, -10px);
     background-color: #5bc0de;
 }
@@ -363,46 +367,43 @@ h6 {
   background-color: #E0E0E0;
 }
 /* top-left border-radius */
-    table tr:first-child th:first-child,
-    table.Info tr:first-child td:first-child {
+    table .facTableRow:first-child th:first-child,
+    table.Info .facTableRow:first-child td:first-child {
         border-top-left-radius: 15px;
     }
 
     /* top-right border-radius */
-    table tr:first-child th:last-child,
-    table.Info tr:first-child td:last-child {
+    table .facTableRow:first-child th:last-child,
+    table.Info .facTableRow:first-child td:last-child {
         border-top-right-radius: 15px;
     }
 
     /* bottom-left border-radius */
-    table tr:last-child td:last-child {
+    table .facTableRow:last-child td:last-child {
         border-bottom-right-radius: 15px;
     }
 
     /* bottom-right border-radius */
-    table tr:last-child th:first-child {
+    table .facTableRow:last-child th:first-child {
         border-bottom-left-radius: 15px;
     }
 
-table{
+.facTimeTable{
     align-items: center;
     margin-left: auto;
     margin-right: auto;
 }
-table,td,th{
+.facTimeTable,.facTableData,.facTableHead{
     border: 1px;
 }
-table{
-    align-items: center;
-  }
 
-tr{background-color: #F5F5F5;}
+.facTableRow{background-color: #F5F5F5;}
 
 .time{
   font-weight: 600;
 }
 
-th{
+.facTableHead{
     text-align: center;
     height:50px;
     width: 115px;
@@ -410,7 +411,7 @@ th{
     background-color: #C0C0C0;
     color: black;
 }
-td{
+.facTableData,.recess-color{
 
     font-size:13px;
     height: 50px;
@@ -421,7 +422,7 @@ td{
 
 
 /* ---------------------------------------------------
-    ADMIN
+    ADMIN        ----faculty add
 ----------------------------------------------------- */
 .addFacultyAdmin{
   margin: 0 auto;
@@ -429,16 +430,49 @@ td{
   background-color: #F5F5F5;
   border-radius: 15px;
   width: 50%;
+  transform: translateY(-15px);
 }
 .addFacultyBtn{
   transform: translate(150px,-10px);
+  background-color: #5bc0de;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.pdg .form-group{
+  margin-bottom: -15px;
+}
 
+
+/* ---------------------------------------------------
+    ADMIN        ----faculty rmv
+----------------------------------------------------- */
+.facRmv{
+  width : 80%;
+  margin : 0 auto;
+}
+
+/* ---------------------------------------------------
+    ADMIN        ----faculty timetable
+----------------------------------------------------- */
+div.admTimeTable{
+  width: 50%;
+  height : 420px;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 3% 5%;
+  background-color: #F5F5F5;
+  transform: translate(-100px,-20px);
+}
+.timeTableFormGroup{
+  padding: 5px;
+}
+.addTime{
+  background-color: #5bc0de;
+  transform: translateX(5px);
+}
 
 
 /* ---------------------------------------------------

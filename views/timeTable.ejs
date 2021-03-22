@@ -1,146 +1,160 @@
 <%- include("partials/header"); -%>
     <div class="Time-Table">
-          <table  cellspacing="1">
+          <table class="facTimeTable"  cellspacing="1">
               <!--<caption>Timetable</caption>-->
-              <tr>
-                  <th >
+              <tr class="facTableRow">
+                  <th class="facTableHead">
                       <b>Time</b></br>
                   </th>
-                  <th >
+                  <th class="facTableHead">
                       <b>Monday</b>
                   </th>
-                  <th >
+                  <th class="facTableHead">
                       <b>Tuesday</b>
                   </th>
-                  <th >
+                  <th class="facTableHead">
                       <b>Wednesday</b>
                   </th>
-                  <th >
+                  <th class="facTableHead">
                       <b>Thursday</b>
                   </th>
-                  <th >
+                  <th class="facTableHead">
                       <b>Friday</b>
                   </th>
-                  <th >
+                  <th class="facTableHead">
                       <b>Saturday</b>
                   </th>
 
               </tr>
-              <tr>
-                  <th class="time">
-                      8:30-9:25 <br> </th>
-                  <td >IS <br>(YNC)</td>
-                  <td  Rowspan = "4" >B1: IOS (YNC)(LAB)
-                      <br>B2: PYTHON (KCP)(LAB 1,2)</td>
-                  <td Rowspan = "4">B1: PYTHON (KCP)(LAB 1,2)
-                      <br>B2:  IOS (YNC)(LAB) </td>
-                  <td >AWS <br>(HP)
-                  </td>
-                  <td >Counselling <br>(VBS,YNC)
-                  </td>
-                  <td >Work
-                  </td>
-              </tr>
-              <tr>
-                  <th class="time">
-                      9:25-10:20 </th>
-                      <td >ST/CI <br>(VBS/YNC)</td>
-                      <td >IS <br>(YNC)
-                      </td>
-                      <td >PROJECT
-                      </td>
-                      <td >Work
-                      </td>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        8:30-9:25 <br> </th>
+                    <td class="facTableData" ><%=monday[0].subject%> <br><%=monday[0].subLocation%></td>
+                    <td class="facTableData"  Rowspan = "2" ><%=tuesday[0].subject%>
+                        <br><%=tuesday[0].subLocation%></td>
+                    <td class="facTableData" Rowspan = "2"><%=wednesday[0].subject%>
+                        <br><%=wednesday[0].subLocation%></td>
+                    <td class="facTableData" ><%=thursday[0].subject%>
+                        <br><%=thursday[0].subLocation%>
+                    </td>
+                    <td class="facTableData" ><%=friday[0].subject%>
+                        <br><%=friday[0].subLocation%>
+                    </td>
+                    <td class="facTableData" >Work
+                    </td>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        9:25-10:20 </th>
+                        <td class="facTableData" ><%=monday[1].subject%><br><%=monday[1].subLocation%> </td>
+                        <td class="facTableData" ><%=thursday[1].subject%>
+                            <br><%=thursday[1].subLocation%>
+                        </td>
+                        <td class="facTableData" ><%=friday[1].subject%>
+                            <br><%=friday[1].subLocation%>
+                        </td>
+                        <td class="facTableData" >Work
+                        </td>
 
-              </tr>
-              <tr>
-                  <th class="time">
-                      10:20-11:15
-                  </th>
-                  <td >PYTHON <br>(KCP)</td>
-                      <td >IS <br>(YNC)
-                      </td>
-                      <td>PROJECT</td>
-                      <td >Work
-                      </td>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        10:20-11:15
+                    </th>
+                    <td class="facTableData" ><%=monday[2].subject%> <br><%=monday[2].subLocation%></td>
+                        <td class="facTableData" ><%=tuesday[1].subject%> <br><%=tuesday[1].subLocation%>
+                        </td>
+                        <td class="facTableData"><%=wednesday[1].subject%>
+                            <br><%=wednesday[1].subLocation%></td>
+                        <td class="facTableData" ><%=thursday[2].subject%>
+                            <br><%=thursday[2].subLocation%>
+                          <td class="facTableData"><%=friday[2].subject%>
+                              <br><%=friday[2].subLocation%></td>
+                          <td class="facTableData">Work</td>
 
-              </tr>
-              <tr>
-                  <th class="time">
-                      11:15-12:00
-                  </th>
-                  <td class= "recess-color" >RECESS
 
-                  <td  class= "recess-color" colspan = "3" >RECESS </td>
-              </tr>
-              <tr>
-                  <th class="time">
-                      12:00-12:50
-                  </th>
-                  <td rowspan="2">B1: AWD (HP) (L18)
-                      <br>B2: IS (YNC) (L11)<br>B3: ST (VBS) (L1,2)  </td>
-                      <td  class= "recess-color" >RECESS
-                      <td  class= "recess-color" > RECESS
-                      </td>
-                      <td Rowspan = "2" >B1: IS (YNC) (L18)
-                          <br>B2: CI (VBS) (L11)<br>B3: AWD (HP) (L7,8)  </td>
-                          <td >PROJECT
-                          </td>
-                          <td >Work
-                          </td>
-              </tr>
-              <tr>
-                  <th class="time">
-                      12:50-1:40
-                  </th>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        11:15-12:00
+                    </th>
+                    <td class="recess-color" colspan = "6" >RECESS </td>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        12:00-12:50
+                    </th>
+                    <td class="facTableData" rowspan="2"><%=monday[3].subject%> <br><%=monday[3].subLocation%></td>
+                        <td class="facTableData" ><%=tuesday[2].subject%> <br><%=tuesday[2].subLocation%></td>
+                        <td class="facTableData" ><%=wednesday[2].subject%>
+                            <br><%=wednesday[2].subLocation%>
+                        </td>
+                        <td class="facTableData" Rowspan = "2" ><%=thursday[3].subject%>
+                            <br><%=thursday[3].subLocation%></td>
+                            <td class="facTableData" Rowspan = "2"><%=friday[3].subject%>
+                                <br><%=friday[3].subLocation%>
+                            </td>
+                            <td class="facTableData" >Work
+                            </td>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        12:50-1:40
+                    </th>
 
-                      <td >PROJECT
-                      </td>
-                      <td >AWD <br> (HP)
-                      </td>
-                      <td>PROJECT</td>
-                      <td >Work
-                      </td>
+                        <td class="facTableData" ><%=tuesday[3].subject%> <br><%=tuesday[3].subLocation%>
+                        </td>
+                        <td class="facTableData" ><%=wednesday[3].subject%>
+                            <br><%=wednesday[3].subLocation%>
+                        </td>
+                        <td class="facTableData" >Work
+                        </td>
 
-              </tr>
-              <tr>
-                  <th class="time">
-                      1:40-1:50
-                  </th>
-                  <td class= "recess-color" colspan="6"> RECESS
-                  </td>
-              </tr>
-              <tr>
-                  <th class="time">
-                      1:50-2:40
-                  </th>
-                  <td >AWD <br> (HP)
-                  </td>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        1:40-1:50
+                    </th>
+                    <td class= "recess-color" colspan="6"> RECESS
+                    </td>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        1:50-2:40
+                    </th>
+                    <td class="facTableData" ><%=monday[4].subject%> <br><%=monday[4].subLocation%>
+                    </td>
 
-                  <td Rowspan = "2" >B1: CI (VBS) (L1)
-                      <br>B2: AWD (HP) (L4)<br>B3: IS (YNC) (L1,2)  </td>
-                      <td >ST/CI <br>(VBS/YNC)</td>
-                      <td >PYTHON <br>(KCP)</td>
+                    <td class="facTableData"><%=tuesday[4].subject%> <br><%=tuesday[4].subLocation%> </td>
+                        <td class="facTableData"><%=wednesday[4].subject%>
+                            <br><%=wednesday[4].subLocation%></td>
+                        <td class="facTableData" ><%=thursday[4].subject%>
+                            <br><%=thursday[4].subLocation%></td>
 
-                  <td >PROJECT
-                  </td>
-                  <td >Work
-                  </td>
+                    <td class="facTableData" ><%=friday[4].subject%>
+                        <br><%=friday[4].subLocation%>
+                    </td>
+                    <td class="facTableData" >Work
+                    </td>
 
-              </tr>
-              <tr>
-                  <th class="time">
-                      2:40-3:30
-                  </th>
-                  <td >IS <br>(YNC)
-                  </td>
-                  <td >ST/CI <br>(VBS/YNC)</td>
-                  <td >PYTHON <br>(KCP)</td>
-                  <td >PROJECT
-                  </td>
-                  <td >Work
-                  </td>
-              </tr>
-          </table>
-    </div>
-<%- include("partials/footer"); -%>
+                </tr>
+                <tr class="facTableRow">
+                    <th class="facTableHead time">
+                        2:40-3:30
+                    </th>
+                    <td class="facTableData" ><%=monday[5].subject%> <br><%=monday[5].subLocation%>
+                    </td>
+                    <td class="facTableData"><%=tuesday[5].subject%> <br><%=tuesday[5].subLocation%> </td>
+                    <td class="facTableData"><%=wednesday[5].subject%>
+                        <br><%=wednesday[5].subLocation%></td>
+                    <td class="facTableData" ><%=thursday[5].subject%>
+                        <br><%=thursday[5].subLocation%></td>
+                    <td class="facTableData" ><%=friday[5].subject%>
+                        <br><%=friday[5].subLocation%>
+                    </td>
+                    <td class="facTableData" >Work
+                    </td>
+                </tr>
+            </table>
+      </div>
+  <%- include("partials/footer"); -%>
