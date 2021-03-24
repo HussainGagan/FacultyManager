@@ -455,14 +455,14 @@ input::-webkit-inner-spin-button {
 }
 
 /* ---------------------------------------------------
-    ADMIN        ----faculty timetable
+    ADMIN        ----faculty ADD timetable
 ----------------------------------------------------- */
 div.admTimeTable{
   width: 50%;
-  height : 420px;
+  height : 440px;
   margin: 0 auto;
   border-radius: 15px;
-  padding: 3% 5%;
+  padding: 2% 5%;
   background-color: #F5F5F5;
   transform: translate(-100px,-20px);
 }
@@ -473,8 +473,28 @@ div.admTimeTable{
   background-color: #5bc0de;
   transform: translateX(5px);
 }
-
-
+.hdnTime{
+  font-size: 20px;
+  margin: 0 0 15px;
+  text-align: center;
+}
+/* ---------------------------------------------------
+    ADMIN        ----faculty View timetable
+----------------------------------------------------- */
+div.col-md-4{
+  transform: translate(300px,-45px);
+}
+.viewTT{
+  transform: translateY(-60px);
+}
+.admTimeTable{
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* .recess{
+  background-color: #000;
+} */
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

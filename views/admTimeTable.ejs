@@ -11,6 +11,7 @@
   <% } %>
 <form class="admTime" action="/admTimeTable" method="post">
 <div class="form-group timeTableFormGroup ">
+  <h3 class="hdnTime">Add Time-Table</h3>
   <label for="facName">Faculty</label>
       <select name="facName" id="facName" class="form-control">
         <option selected>Choose a faculty</option>
@@ -28,11 +29,23 @@
             <option>Wednesday</option>
             <option>Thursday</option>
             <option>Friday</option>
+            <option>Saturday</option>
           </select>
         </div>
         <div class="form-group timeTableFormGroup">
           <label for="time">Time</label>
-          <input type="text" class="form-control" name="time" placeholder="Enter Time">
+          <select name="time" id="time" class="form-control">
+            <option selected>Choose a Time</option>
+            <option>8:30-9:25</option>
+            <option>9:25-10:20</option>
+            <option>10:20-11:15</option>
+            <option>11:15-12:00</option>
+            <option>12:00-12:50</option>
+            <option>12:50-1:40</option>
+            <option>1:40-1:50</option>
+            <option>1:50-2:40</option>
+            <option>2:40-3:30</option>
+          </select>
             </div>
             <div class="form-row">
               <div class="form-group timeTableFormGroup col-md-6">

@@ -19,9 +19,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <!-- Font Awesome kit -->
   <script src="https://kit.fontawesome.com/b95b3d9c3a.js" crossorigin="anonymous"></script>
+  <!-- sweet alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- bootstrap  -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<!-- jQuery cdn  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -35,31 +40,22 @@
 
 
       <ul id="classActive" class="list-unstyled components">
-        <li class="active">
+        <!-- <li class="active">
           <a role="button" href="#fac" aria-haspopup="true" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Faculty</a>
-          <ul class="collapse list-unstyled" id="fac">
+          <ul class="collapse list-unstyled" id="fac"> -->
             <li>
               <a href="/admFacultyAdd">Add Faculty</a>
             </li>
             <li>
               <a href="/admFacultyRmv">List of Faculties</a>
             </li>
-          </ul>
-        </li>
-
-        <!-- <li class="link active">
-                        <a href="/admFaculty">Faculty</a>
-                    </li> -->
         <li class="link">
           <a href="/admStudent">Student</a>
-          <a href="/admTimeTable">Time Table</a>
+          <a href="/admTimeTable">Add Time-Table</a>
         </li>
-        <!-- <li class="link">
-                        <a href="/studentFeedback">Student Feedback</a>
-                    </li>
-                    <li class="link">
-                        <a href="/freeSlot">Free Slot</a>
-                    </li> -->
+        <li>
+          <a href="/admViewTimeTable">View Time-Table</a>
+        </li>
       </ul>
 
       <ul class="list-unstyled CTAs">

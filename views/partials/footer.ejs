@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <script type="text/javascript">
+  var allCell = document.querySelectorAll(".facTableData");
   $(document).ready(function() {
     $("#sidebar").mCustomScrollbar({
       theme: "minimal"
@@ -22,14 +23,37 @@
       $('.collapse.in').toggleClass('in');
       $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
+
+    allCell.forEach((cell)=>{
+      if(cell.innerText.includes("CONTINUE")){
+        $(cell).remove();
+      }
+    })
   });
 
-    // var allCell = document.querySelectorAll(".facTableData");
-    // allCell.forEach((cell)=>{
-    //   if(cell.innerText.includes("LAB")){
-    //     cell.setAttribute("rowspan","2");
-    //   }
-    // })
+
+
+    allCell.forEach((cell)=>{
+      if(cell.innerText.includes("RECESS")){
+        cell.innerText = "RECESS";
+        cell.classList.add("recess-color");
+      }
+      if(cell.innerText.includes("LAB")){
+        cell.setAttribute("rowspan","2");
+      }
+      if(cell.innerText.includes("FREE")){
+        cell.innerText = "FREE";
+      }
+      if(cell.innerText.includes("WORK")){
+        cell.innerText = "WORK";
+      }
+      // if(cell.innerText.includes("CONTINUE")){
+      //   cell.addEventListener("click",()=>{
+      //     swal("It means the continuation of the previous slot");
+      //   })
+      // }
+
+    })
 
 
 

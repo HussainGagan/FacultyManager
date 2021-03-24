@@ -14,6 +14,7 @@
 
 
 <script type="text/javascript">
+
     $(document).ready(function() {
       $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -24,7 +25,126 @@
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
       });
+
     });
+
+    function showFac(facName){
+      $("#admTimeTable").empty();
+      $(document).ready(function(){
+        if(facName != ""){
+        $.ajax({
+          url: "/admViewTimeTable",
+          method: "post",
+          data : {facName : facName},
+          success : function(result, status, xhr){
+            $("#admTimeTable").append(
+            "<tr class=facTableRow>" +
+                "<th class=facTableHead>" +
+                    "<b>Time</b>"+
+                "</th>" +
+                "<th class=facTableHead>" +
+                    "<b>Monday</b>" +
+                "</th>" +
+                "<th class=facTableHead>" +
+                    "<b>Tuesday</b>" +
+                "</th>" +
+                "<th class=facTableHead>" +
+                    "<b>Wednesday</b>" +
+                "</th>" +
+                "<th class=facTableHead>" +
+                    "<b>Thursday</b>" +
+                "</th>" +
+                "<th class=facTableHead>" +
+                    "<b>Friday</b>" +
+                "</th>" +
+                "<th class=facTableHead>"+
+                    "<b>Saturday</b>" +
+                "</th>" +
+            "</tr>")
+              for (var i = 0; i < 9; i++) {
+                $("#admTimeTable").append(
+                "<tr class=facTableRow>" +
+                    "<th class=facTableHead time>"
+                      + result.Monday[i].time + "<br> </th>" +
+                    "<td class=facTableData>" + result.Monday[i].subject + "<br>"+result.Monday[i].subLocation+"</td>" +
+                    "<td class=facTableData>"+result.Tuesday[i].subject+
+                        "<br>"+result.Tuesday[i].subLocation+ "</td>" +
+                    "<td class=facTableData>"+result.Wednesday[i].subject+
+                        "<br>"+result.Wednesday[i].subLocation+"</td>" +
+                    "<td class=facTableData>"+result.Thursday[i].subject+
+                        "<br>"+result.Thursday[i].subLocation+
+                    "</td>" +
+                    "<td class=facTableData>"+result.Friday[i].subject+
+                        "<br>"+result.Friday[i].subLocation+
+                    "</td>" +
+                    "<td class=facTableData>"+result.Saturday[i].subject+
+                        "<br>"+result.Saturday[i].subLocation+
+                    "</td>" +
+                "</tr>"
+                );
+                  }
+
+          },
+          error : function(xhr, status, error){
+            console.log("error");
+          }
+        })
+      } else{
+        swal({
+        text: "Choose a Faculty to get the Time-Table!!",
+        icon: "warning",
+      });
+      }
+
+    });
+    $(document).ajaxComplete(function(){
+    var allCell = document.querySelectorAll(".facTableData");
+    allCell.forEach((cell)=>{
+      if(cell.innerText.includes("RECESS")){
+        cell.innerText = "RECESS";
+        cell.classList.add("recess-color");
+      }
+      if(cell.innerText.includes("CONTINUE")){
+          $(cell).remove();
+        }
+        if(cell.innerText.includes("LAB")){
+            cell.setAttribute("rowspan","2");
+        }
+        if(cell.innerText.includes("FREE")){
+            cell.innerText = "FREE";
+        }
+        if(cell.innerText.includes("WORK")){
+            cell.innerText = "WORK";
+        }
+  })
+  });
+  }
+
+  // $(document).ready(function(){
+  //
+  // allCell.forEach((cell)=>{
+  //   if(cell.innerText.includes("CONTINUE")){
+  //     $(cell).remove();
+  //   }
+  // })
+  // allCell.forEach((cell)=>{
+  //   if(cell.innerText.includes("RECESS")){
+  //     cell.innerText = "RECESS";
+  //     cell.classList.add("recess-color");
+  //   }
+  //   if(cell.innerText.includes("LAB")){
+  //     cell.setAttribute("rowspan","2");
+  //   }
+  //   if(cell.innerText.includes("FREE")){
+  //     cell.innerText = "FREE";
+  //   }
+  //   if(cell.innerText.includes("WORK")){
+  //     cell.innerText = "WORK";
+  //   }
+  //   })
+  // })
+
+
     var allCheckBox = document.querySelectorAll(".check");
     allCheckBox.forEach((checkbox) => {
 

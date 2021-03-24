@@ -33,7 +33,8 @@ const facSchema = new mongoose.Schema({
   Tuesday : [timeTableSchema],
   Wednesday : [timeTableSchema],
   Thursday : [timeTableSchema],
-  Friday : [timeTableSchema]
+  Friday : [timeTableSchema],
+  Saturday : [timeTableSchema]
 })
 //   timeTable : {                     // or alternate schema
 //   monday : [timeTableSchema],
@@ -102,7 +103,7 @@ app.get("/addEvent",function(req,res){
   res.render("addEvent");
 })
 app.get("/timeTable",function(res,res){
-  res.render("timeTable",{monday : foundFaculty.Monday, tuesday : foundFaculty.Tuesday, wednesday : foundFaculty.Wednesday, thursday : foundFaculty.Thursday, friday : foundFaculty.Friday});
+  res.render("timeTable",{monday : foundFaculty.Monday, tuesday : foundFaculty.Tuesday, wednesday : foundFaculty.Wednesday, thursday : foundFaculty.Thursday, friday : foundFaculty.Friday, saturday : foundFaculty.Saturday});
 })
 app.get("/studentFeedback",function(res,res){
   res.render("studentFeedback");
@@ -195,7 +196,7 @@ app.get("/admStudent",function(req,res){
 })
 
 var successTimeTable = false;
-app.get("/admTimeTable",function(res,res){
+app.get("/admTimeTable",function(req,res){
   Faculty.find({}, 'name', function(err, foundFacultiesName){
     if(err){
       console.log(err);
@@ -212,7 +213,7 @@ app.post("/admTimeTable",function(req,res){
     time : time,
     subject : subject,
     subLocation : subLocation
-  }}},function(err){
+  }}},{upsert: true},function(err){
     if(err){
       console.log(err);
     } else{
@@ -222,6 +223,26 @@ app.post("/admTimeTable",function(req,res){
   })
 })
 
+app.get("/admViewTimeTable",function(req,res){
+  Faculty.find({}, 'name', function(err, foundFacultiesName){
+    if(err){
+      console.log(err);
+    } else{
+      res.render("admViewTT", {listOfFacNames : foundFacultiesName});
+    }
+
+  })
+})
+app.post("/admViewTimeTable",function(req,res){
+  var facName = req.body.facName;
+  Faculty.findOne({name : facName}, 'Monday Tuesday Wednesday Thursday Friday Saturday', function(err, timetable){
+    if(err){
+      console.log(err);
+    }else{
+      res.send(timetable)
+    }
+  })
+})
 
 ///------------------- starting port at 3000 ------------------//////////////////
 app.listen(3000,function(){
