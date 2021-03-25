@@ -30,6 +30,7 @@
 
     function showFac(facName){
       $("#admTimeTable").empty();
+      $(".alert").css("display","none");
       $(document).ready(function(){
         if(facName != ""){
         $.ajax({
@@ -90,10 +91,12 @@
           }
         })
       } else{
+        $(".alert").css("display","inherit");
         swal({
         text: "Choose a Faculty to get the Time-Table!!",
         icon: "warning",
       });
+
       }
 
     });
@@ -119,30 +122,6 @@
   })
   });
   }
-
-  // $(document).ready(function(){
-  //
-  // allCell.forEach((cell)=>{
-  //   if(cell.innerText.includes("CONTINUE")){
-  //     $(cell).remove();
-  //   }
-  // })
-  // allCell.forEach((cell)=>{
-  //   if(cell.innerText.includes("RECESS")){
-  //     cell.innerText = "RECESS";
-  //     cell.classList.add("recess-color");
-  //   }
-  //   if(cell.innerText.includes("LAB")){
-  //     cell.setAttribute("rowspan","2");
-  //   }
-  //   if(cell.innerText.includes("FREE")){
-  //     cell.innerText = "FREE";
-  //   }
-  //   if(cell.innerText.includes("WORK")){
-  //     cell.innerText = "WORK";
-  //   }
-  //   })
-  // })
 
 
     var allCheckBox = document.querySelectorAll(".check");

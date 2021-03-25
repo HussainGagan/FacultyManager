@@ -109,7 +109,14 @@ app.get("/studentFeedback",function(res,res){
   res.render("studentFeedback");
 })
 app.get("/freeSlot",function(res,res){
-  res.render("freeSlot");
+  var facId = foundFaculty._id;
+  Faculty.findOne({_id : facId},'Monday Tuesday Wednesday Thursday Friday Saturday',function(err,result){
+    if(err){
+      console.log(err);
+    }else{
+      res.render("freeSlot",{monday : result.Monday, tuesday : result.Tuesday, wednesday : result.Wednesday, thursday : result.Thursday, friday : result.Friday, saturday : result.Saturday});
+    }
+  }).select({_id : 0});
 })
 
 

@@ -13,6 +13,7 @@
 
 <script type="text/javascript">
   var allCell = document.querySelectorAll(".facTableData");
+  var freeCell = document.querySelectorAll(".facFreeSlot");
   $(document).ready(function() {
     $("#sidebar").mCustomScrollbar({
       theme: "minimal"
@@ -31,7 +32,11 @@
     })
   });
 
-
+  freeCell.forEach((cell)=>{
+    if(cell.innerText == ""){
+      cell.innerText = "There are no free lectures";
+    }
+  })
 
     allCell.forEach((cell)=>{
       if(cell.innerText.includes("RECESS")){
