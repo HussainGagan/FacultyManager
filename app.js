@@ -1,16 +1,60 @@
+require('dotenv').config();
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const flash = require("connect-flash");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const {ensureAuthenticated} = require("./config/auth");
+const {ensureJWTAuthenticated} = require("./config/auth-jwt.js");
+const jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser')
 const Swal = require("sweetalert2");
 
-
 const app = express();
+app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
+//Express session
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+}));
+// Passport middelware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Connect flash
+app.use(flash());
+
+// Global Vars
+app.use((req, res, next)=>{
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+
+  next()
+});
+
 mongoose.connect("mongodb://localhost:27017/facMangDB", {useNewUrlParser : true , useUnifiedTopology: true });
+
+///////// ------------------------- Admin Schema ---------------------- //////
+const adminSchema = new mongoose.Schema({
+  adminId : Number,
+  password : String
+})
+const Admin = mongoose.model("admin",adminSchema);
+const admin = new Admin({
+  adminId : 1523,
+  password: "qwerty"
+})
+// admin.save();
 
 ///////// ------------------------- Time-tableSchema ---------------------- //////
 const timeTableSchema = new mongoose.Schema({
@@ -36,87 +80,118 @@ const facSchema = new mongoose.Schema({
   Friday : [timeTableSchema],
   Saturday : [timeTableSchema]
 })
-//   timeTable : {                     // or alternate schema
-//   monday : [timeTableSchema],
-//   tuesday : [timeTableSchema],
-//   .... continue till friday.
-// }
+
 const Faculty = mongoose.model("faculty",facSchema);
 
-///////// ------------------------- Admin Schema ---------------------- //////
-const adminSchema = new mongoose.Schema({
-  adminId : Number,
-  password : String
-})
-const Admin = mongoose.model("admin",adminSchema);
-const admin = new Admin({
-  adminId : 1523,
-  password: "qwerty"
-})
-// admin.save();
+//passport //
+passport.use("faculty", new LocalStrategy({usernameField : "lgnFacultyId", passwordField: 'lgnFacultyPass'}, (facId, password, done) =>{
+  // Match Faculty
+  Faculty.findOne({facId : facId})
+  .then(faculty =>{
+    if(!faculty){
+      return done(null, false, {message : "Incorrect Faculty Id"});
+    }
+    //Match Password
+    bcrypt.compare(password, faculty.password, (err,isMatch)=>{
+      if (err) throw err;
+      if(isMatch){
+        return done(null, faculty);
+      }else{
+        return done(null, false, {message : "Incorrect Password"})
+      }
+    });
+  })
+  .catch(err => console.log(err));
+}));
+
+// passport.use("admin", new LocalStrategy({usernameField : "adminId", passwordField: 'adminPass'}, (adminId, password, done) =>{
+//   // Match Faculty
+//   Admin.findOne({adminId : adminId})
+//   .then(admin =>{
+//     if(!admin){
+//       return done(null, false, {message : "Incorrect Admin Id"});
+//     }
+//     //Match Password
+//     bcrypt.compare(password, admin.password, (err,isMatch)=>{
+//       if (err) throw err;
+//       if(isMatch){
+//         return done(null, admin);
+//       }else{
+//         return done(null, false, {message : "Incorrect Password"})
+//       }
+//     });
+//   })
+//   .catch(err => console.log(err));
+// }));
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  Faculty.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+
 
 ///////// ------------------------- Faculty module ---------------------- //////
 app.get("/",function(res,res){
   res.render("facLogin");
 })
 
-var foundFaculty ; //hold the value of the faculty which loged in.
-app.post("/",function(req,res){
-  var lgnFacId = req.body.lgnFacultyId;
-  var lgnFacPass = req.body.lgnFacultyPass;
-  Faculty.findOne({facId : lgnFacId}, function(err, foundFac){
-    if(err){
-      console.log(err);
-    }else{
-      if(foundFac){
-        if(foundFac.password === lgnFacPass){
-          foundFaculty = foundFac;
-          res.redirect("/dashboard");
-        }
-      }
-    }
-  })
+app.post("/",function(req, res, next){
+  passport.authenticate("faculty",{
+    successRedirect : "/dashboard",
+    failureRedirect : "/",
+    failureFlash : true
+  })(req, res, next);
+})
+app.get("/facLogout",function(req,res){
+  req.logout();
+  req.flash("success_msg", "Succesfully logged out");
+  res.redirect("/");
 })
 
-// app.post("/register",function(req,res){
-//   var regFacultyId = req.body.regFacultyId;
-//   var regFacultyName = req.body.regFacultyName;
-//   var regFacultyEmail = req.body.regFacultyEmail;
-//   var regFacultyPass = req.body.regFacultyPass;
-//   const faculty = new Faculty({
-//     facId : regFacultyId,
-//     name : regFacultyName,
-//     email : regFacultyEmail,
-//     password : regFacultyPass
-//   })
-//   faculty.save(function(err){
-//     if(!err){
-//       res.redirect("/dashboard");
-//     }
-//   });
-// })
 
-app.get("/dashboard",function(req,res){
-  res.render("myProfile",{foundFac : foundFaculty});
+app.get("/dashboard", ensureAuthenticated , function(req,res){
+    res.render("myProfile",{
+      foundFacName : req.user.name,
+      foundFacEmail : req.user.email,
+      foundFacPhone : req.user.phone,
+      foundFacId : req.user.facId,
+      foundFacRole : req.user.role,
+      foundFacAOF : req.user.areaOfInterest
+     });
+
 })
-app.get("/addEvent",function(req,res){
+app.get("/addEvent", ensureAuthenticated, function(req,res){
   res.render("addEvent");
 })
-app.get("/timeTable",function(res,res){
-  res.render("timeTable",{monday : foundFaculty.Monday, tuesday : foundFaculty.Tuesday, wednesday : foundFaculty.Wednesday, thursday : foundFaculty.Thursday, friday : foundFaculty.Friday, saturday : foundFaculty.Saturday});
+app.get("/timeTable", ensureAuthenticated, function(req,res){
+  res.render("timeTable",{
+    monday : req.user.Monday,
+    tuesday : req.user.Tuesday,
+    wednesday : req.user.Wednesday,
+    thursday : req.user.Thursday,
+    friday : req.user.Friday,
+    saturday : req.user.Saturday
+  });
 })
-app.get("/studentFeedback",function(res,res){
+app.get("/studentFeedback", ensureAuthenticated, function(req,res){
   res.render("studentFeedback");
 })
-app.get("/freeSlot",function(res,res){
-  var facId = foundFaculty._id;
-  Faculty.findOne({_id : facId},'Monday Tuesday Wednesday Thursday Friday Saturday',function(err,result){
-    if(err){
-      console.log(err);
-    }else{
-      res.render("freeSlot",{monday : result.Monday, tuesday : result.Tuesday, wednesday : result.Wednesday, thursday : result.Thursday, friday : result.Friday, saturday : result.Saturday});
-    }
-  }).select({_id : 0});
+app.get("/freeSlot", ensureAuthenticated, function(req,res){
+  res.render("freeSlot",{
+    monday : req.user.Monday,
+    tuesday : req.user.Tuesday,
+    wednesday : req.user.Wednesday,
+    thursday : req.user.Thursday,
+    friday : req.user.Friday,
+    saturday : req.user.Saturday
+  });
 })
 
 
@@ -125,55 +200,139 @@ app.get("/admin",(req,res)=>{
   res.render("adminLogin");
 })
 
-app.post("/admin",(req,res)=>{
+app.post("/admin",(req, res)=>{
   var adminId = req.body.adminId;
   var adminPass = req.body.adminPass;
+  let admLgnErr = []
   Admin.findOne({adminId : adminId}, function(err, foundAdmin){
-    if(err){
-      console.log(err);
-    }else{
       if(foundAdmin){
-        if(foundAdmin.password === adminPass){
-          res.redirect("/admFacultyAdd");
-        }
+        bcrypt.compare(adminPass, foundAdmin.password, (err, isMatch)=>{
+          if(err) throw err;
+          if(isMatch){
+            const token = jwt.sign(
+              {
+                adminId : foundAdmin.adminId
+              },
+              process.env.JWT_SECRET
+            )
+
+            res.cookie("jwt", token,{
+              // expires : new Date(Date.now() + 300000),
+              httpOnly : true
+            })
+            res.redirect("/admFacultyAdd");
+            // console.log(token);
+          }else{
+            admLgnErr.push({msg : "Invalid ID or Password"});
+            res.render("adminLogin", {admLgnErr,adminId,adminPass});
+          }
+        })
+      }else{
+        admLgnErr.push({msg : "Invalid ID or Password"});
+        res.render("adminLogin", {admLgnErr,adminId,adminPass});
       }
-    }
-  })
+
+})
 })
 
-var success = false;
+app.get("/admLogout", ensureJWTAuthenticated,function(req,res){
+  res.clearCookie("jwt");
+  req.flash("success_msg", "Succesfully logged out");
+  res.redirect("/admin");
+})
 
-app.get("/admFacultyAdd",function(req,res){
-  res.render("admFacultyAdd", {success : success});
-  success = false;
+// var success = false;
+
+app.get("/admFacultyAdd", ensureJWTAuthenticated,async (req,res)=>{
+  const {adminId} = res.locals; // accessing the adminId passes from middelware (ensureJWTAuthenticated)
+  console.log(adminId);
+  res.render("admFacultyAdd");
+  // success = false;
 })
 
 app.post("/admFacultyAdd",function(req,res){
-    var regFacId = req.body.facAdminId;
+    var regFacId = req.body.regFacId;
     var regFacName = req.body.facultyAdminName;
     var regFacEmail = req.body.facAdminEmail;
     var regFacPass = req.body.facAdminPass;
     var regFacAreaOfInterest = req.body.areaOfInterest;
     var regFacRole = req.body.facRole;
     var regFacPhone = req.body.facPhone;
-    const faculty = new Faculty({
-        facId : regFacId,
-        name : regFacName,
-        email : regFacEmail,
-        password : regFacPass,
-        role  : regFacRole,
-        areaOfInterest : regFacAreaOfInterest,
-        phone : regFacPhone
-      })
-      faculty.save(function(err){
-        if(!err){
-          success = true ;
-          res.redirect("/admFacultyAdd");
-        }
+    let errors = [];
+    //check required fields
+    if(!regFacId || !regFacName || !regFacEmail || !regFacPass || !regFacAreaOfInterest || !regFacRole || !regFacPhone){
+      errors.push({msg : "All fields are Required"})
+    }
+    if(regFacPass){
+      if(regFacPass.length < 6){
+        errors.push({msg: "password should be of at least 6 characters"});
+      }
+    }
+    if(regFacPhone){
+      if(regFacPhone.toString().length!=10){
+        errors.push({msg : "Phone number length should be 10"})
+      }
+    }
+    if(errors.length > 0){
+      res.render("admFacultyAdd",{
+        errors,
+        regFacId,
+        regFacName,
+        regFacEmail,
+        regFacPass,
+        regFacAreaOfInterest,
+        regFacRole,
+        regFacPhone
       });
+    }else{
+    Faculty.findOne({facId : regFacId})
+    .then(fac => {
+      if(fac) {
+        //faculty already registered
+        errors.push({msg : "Faculty with "+regFacId+" ID is already added"});
+        res.render("admFacultyAdd",{
+          errors,
+          regFacId,
+          regFacName,
+          regFacEmail,
+          regFacPass,
+          regFacAreaOfInterest,
+          regFacRole,
+          regFacPhone
+        });
+      }else{
+        const faculty = new Faculty({
+            facId : regFacId,
+            name : regFacName,
+            email : regFacEmail,
+            password : regFacPass,
+            role  : regFacRole,
+            areaOfInterest : regFacAreaOfInterest,
+            phone : regFacPhone
+          })
+          bcrypt.genSalt(10, (err,salt) =>{
+            bcrypt.hash(faculty.password, salt, (err, hash) => {
+              if(err) throw err;
+              //set password to hash
+              faculty.password = hash;
+              //save faculty
+              faculty.save(function(err){
+                if(!err){
+                  // success = true ;
+                  req.flash("success_msg", "Succesfully Added Faculty to the database");
+                  res.redirect("/admFacultyAdd");
+                }
+              });
+            })
+          })
+
+      }
+    })
+    }
+
 })
 
-app.get("/admFacultyRmv",function(req,res){
+app.get("/admFacultyRmv",ensureJWTAuthenticated,function(req,res){
   Faculty.find({}, function(err, foundFaculties){
     if(err){
       console.log(err);
@@ -198,12 +357,12 @@ app.post("/admFacultyRmv",function(req,res){
   })
 })
 
-app.get("/admStudent",function(req,res){
+app.get("/admStudent",ensureJWTAuthenticated,function(req,res){
   res.render("admStudent");
 })
 
 var successTimeTable = false;
-app.get("/admTimeTable",function(req,res){
+app.get("/admTimeTable",ensureJWTAuthenticated,function(req,res){
   Faculty.find({}, 'name', function(err, foundFacultiesName){
     if(err){
       console.log(err);
@@ -230,7 +389,7 @@ app.post("/admTimeTable",function(req,res){
   })
 })
 
-app.get("/admViewTimeTable",function(req,res){
+app.get("/admViewTimeTable",ensureJWTAuthenticated,function(req,res){
   Faculty.find({}, 'name', function(err, foundFacultiesName){
     if(err){
       console.log(err);
