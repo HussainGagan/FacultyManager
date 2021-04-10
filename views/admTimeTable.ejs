@@ -1,14 +1,7 @@
 <%- include("partials/admHeader"); -%>
 
 <div class="admTimeTable">
-  <% if (successTimeTable) { %>
-  <script type="text/javascript">
-    swal({
-    text: "Succesfully Added Time-Table Document",
-    icon: "success",
-  });
-  </script>
-  <% } %>
+  <%- include("partials/error"); -%>
 <form class="admTime" action="/admTimeTable" method="post">
 <div class="form-group timeTableFormGroup ">
   <h3 class="hdnTime">Add Time-Table</h3>
