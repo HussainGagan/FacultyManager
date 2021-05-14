@@ -7,6 +7,15 @@
 <%  }); %>
 <% } %>
 
+<% if(typeof studAdd_errors!= "undefined"){ %>
+  <% studAdd_errors.forEach((error)=>{ %>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+    <button  type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%=error.msg%>
+  </div>
+  <%  }); %>
+  <% } %>
+
 <% if(typeof admLgnErr!= "undefined"){ %>
 <% admLgnErr.forEach((error)=>{ %>
   <div class="alert alert-warning alert-dismissible" role="alert">

@@ -145,13 +145,16 @@ a.article, a.article:hover {
     color: #fff !important;
 }
 
-
+hr{
+    border-top: 1px solid #eee;
+    margin: 5px;
+}
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-  overflow-x: hidden;
-  overflow-y : hidden;
+    overflow-x: hidden;
+    overflow-y : hidden;
     width: calc(100% - 250px);
     padding: 10px 10px 40px;
     min-height: 100vh;
@@ -174,6 +177,24 @@ a.article, a.article:hover {
 /* ---------------------------------------------------
     My profile css
 ----------------------------------------------------- */
+.edit-btn{
+    margin-left: 350px;
+    width: 20%;
+    border-radius: 25px;
+    background: #57b846;
+    outline: none !important;
+    border: none;
+    color: #fff;
+    height: 50px;
+    font-size: 15px;
+    font-family: Montserrat;
+    font-weight: bold;
+    transition: all 0.4s;
+  }
+  .edit-btn:hover{
+    background: #333333;
+    cursor: pointer;
+  }
 #row{
   margin : 0;
 }
@@ -227,8 +248,9 @@ a.article, a.article:hover {
 }
 
 .bg-c-lite-green {
-    background: -webkit-gradient(linear, left top, right top, from(#56ab2f), to(#a8e063));
-    background: linear-gradient(to right, #56ab2f, #a8e063)
+    background: -webkit-gradient(linear, left top, right top, from(#73b8d5), to(#6dd5ed));
+    background: linear-gradient(to right, #73b8d5, #6dd5ed);
+    /* background-color: #73b8d5; */
 }
 
 .user-profile {
@@ -336,8 +358,9 @@ h6 {
     background-color: #5bc0de;
 }
 .Add-Event{
-  transform: translate(-40px,5px);
+    transform: translateY(-10px);
 }
+
 .form-control{
   resize: none;
   padding: 6px 12px;
@@ -353,7 +376,8 @@ h6 {
     background-color : #F5F5F5;
     width : 650px;
     height : 350px;
-    margin : 40px auto;
+    margin-top : 20px;
+    margin-left: 180px;
 }
 
 /* ---------------------------------------------------
@@ -428,16 +452,39 @@ h6 {
   margin : 0 auto;
 }
 
+
+/* ---------------------------------------------------
+      faculty&student edit profile
+----------------------------------------------------- */
+.editHdg{
+    font-weight: 600;
+    margin-left: 10px; 
+    font-size: 20px;
+}
+.edtLbl{
+    font-weight: 500;
+}
+  
+
 /* ---------------------------------------------------
     ADMIN        ----faculty add
 ----------------------------------------------------- */
+
+.admHdg{
+    font-weight: 600;
+    font-size: 22px;
+}
+.admLbl{
+    font-weight: 500;
+}
+
 .addFacultyAdmin{
-  margin: 0 auto;
-  padding : 2% 3%;
+  margin-left: 180px;
+  padding : 1% 3%;
   background-color: #F5F5F5;
   border-radius: 15px;
-  width: 50%;
-  transform: translateY(-15px);
+  width: 55%;
+  transform: translateY(-20px);
 }
 .addFacultyBtn{
   transform: translate(150px,-10px);
@@ -457,7 +504,7 @@ input::-webkit-inner-spin-button {
     ADMIN        ----faculty rmv
 ----------------------------------------------------- */
 .facRmv{
-  width : 80%;
+  width : 90%;
   margin : 0 auto;
 }
 
@@ -467,11 +514,10 @@ input::-webkit-inner-spin-button {
 div.admTimeTable{
   width: 50%;
   height : 440px;
-  margin: 0 auto;
+  margin-left: 180px;
   border-radius: 15px;
   padding: 2% 5%;
   background-color: #F5F5F5;
-  transform: translate(-100px,-20px);
 }
 .timeTableFormGroup{
   padding: 5px;
@@ -499,6 +545,51 @@ div.col-md-4{
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ---------------------------------------------------
+    ADMIN - faculty view free slot
+----------------------------------------------------- */
+
+.viewFS{
+    transform: translateY(-70px);
+    width : 70%;
+    margin : 0 auto;
+}
+
+
+/* ---------------------------------------------------
+    ADMIN - STUDENT RMV
+----------------------------------------------------- */
+.studRmv{
+    width : 90%;
+    margin : 0 auto;
+  }
+
+
+/* View Event */
+.viewEvent{
+    width : 100%;
+    margin : 0 auto;
+}
+.evt{
+    width: 13%;
+}
+.evtDesc{
+    width: 50%;
+}
+.sr{
+    width: 6%;
+}
+#evtDesc{
+    text-align: justify;
+}
+
+
+
+.facEvtDesc{
+    width: 43%;
+}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES

@@ -34,7 +34,7 @@
       $(document).ready(function(){
         if(facName != ""){
         $.ajax({
-          url: "/admViewTimeTable",
+          url: "/admin/viewTimeTable",
           method: "post",
           data : {facName : facName},
           success : function(result, status, xhr){
@@ -149,9 +149,42 @@
             });
         }
       });
-
-
+      
     })
+
+    var allStudCheckBox = document.querySelectorAll(".studcheck");
+    allStudCheckBox.forEach((checkbox) => {
+      checkbox.addEventListener("click", () => {
+        if (checkbox.checked === true) {
+          swal({
+              title : "Are you sure?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                checkbox.form.submit();
+                swal({
+                text: "Succesfully Removed Faculty from the database",
+                icon: "success",
+              });
+              } else {
+                swal("It is safe!");
+                checkbox.checked = false ;
+              }
+            });
+        }
+      });
+      
+    })
+
+  var freeCell = document.querySelectorAll(".facFreeSlot");
+    freeCell.forEach((cell)=>{
+        if(cell.innerText == ""){
+          cell.innerText = "There are no free lectures";
+        }
+  })
 
   var header = document.getElementById("classActive");
   var btns = header.getElementsByClassName("link");

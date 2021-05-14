@@ -1,6 +1,5 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { forwardAuthenticated } = require('./auth');
 
 
 module.exports = {
@@ -20,11 +19,10 @@ module.exports = {
       const token = req.cookies.jwt;
       const verifyAdm = jwt.verify(token, process.env.JWT_SECRET);
       if(verifyAdm){
-        res.redirect("/admFacultyAdd")
+        res.redirect("/admin/addFaculty")
       }
     } catch(error){
       next()
     }
   }
   }
-

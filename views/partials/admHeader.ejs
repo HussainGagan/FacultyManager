@@ -13,8 +13,8 @@
   <!-- Bootstrap CSS CDN -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- Our Custom CSS -->
-  <link rel="stylesheet" href="css/sidenavstyle.css">
-  <link rel="icon" href="favicon/favicon.ico">
+  <link rel="stylesheet" href="/css/sidenavstyle.css">
+  <link rel="icon" href="/favicon/favicon.ico">
   <!-- Scrollbar Custom CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <!-- Font Awesome kit -->
@@ -40,26 +40,36 @@
 
 
       <ul id="classActive" class="list-unstyled components">
-        <!-- <li class="active">
-          <a role="button" href="#fac" aria-haspopup="true" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Faculty</a>
-          <ul class="collapse list-unstyled" id="fac"> -->
-            <li>
-              <a href="/admFacultyAdd">Add Faculty</a>
+            <li class="<%= pageName === 'addFaculty'? 'link active' : 'link' %>">
+              <a href="/admin/addFaculty">Add Faculty</a>
             </li>
-            <li>
-              <a href="/admFacultyList">List of Faculties</a>
+            <li class="<%= pageName === 'facultyList'? 'link active' : 'link' %>">
+              <a href="/admin/facultyList">List of Faculties</a>
             </li>
-        <li class="link">
-          <a href="/admStudent">Student</a>
-          <a href="/admTimeTable">Add Time-Table</a>
+
+        <li class="<%= pageName === 'addTimeTable'? 'link active' : 'link' %>">
+          <a href="/admin/timeTable">Add Time-Table</a>
+        </li> 
+        <li class="<%= pageName === 'viewTimeTable'? 'link active' : 'link' %>">
+          <a href="/admin/viewTimeTable">View Time-Table</a>
         </li>
-        <li>
-          <a href="/admViewTimeTable">View Time-Table</a>
+        <li class="<%= pageName === 'freeSlot'? 'link active' : 'link' %>">
+          <a href="/admin/freeSlot">View Free Slot</a>
+        </li>
+        <li class="<%= pageName === 'facEvent'? 'link active' : 'link' %>">
+          <a href="/admin/facEvent">View Faculty Event</a>
+        </li>
+        <hr>
+        <li class="<%= pageName === 'addStudent'? 'link active' : 'link' %>">
+          <a href="/admin/addStudent">Add Student</a>
+        </li>
+        <li class="<%= pageName === 'studentList'? 'link active' : 'link' %>">
+          <a href="/admin/studentList">List of Students</a>
         </li>
       </ul>
 
       <ul class="list-unstyled CTAs">
-        <li><a href="/admLogout" class="logout">Log Out</a></li>
+        <li><a href="/admin/logout" class="logout">Log Out</a></li>
       </ul>
     </nav>
 
@@ -76,14 +86,7 @@
           </div>
           <a class="navbar-brand" id="nav-brand" href="">Dashboard</a>
 
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Page</a></li>
-              <li><a href="#">Page</a></li>
-              <li><a href="#">Page</a></li>
-              <li><a href="#">Page</a></li>
-            </ul>
-          </div>
+          
         </div>
       </nav>
       <div class="dashboard-content">

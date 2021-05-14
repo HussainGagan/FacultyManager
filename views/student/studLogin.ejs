@@ -22,7 +22,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-  <%- include("partials/error"); -%>
+  <%- include("../partials/error"); -%>
   <div class="form">
     <div class="row">
       <div class="col-lg-6" data-tilt>
@@ -30,20 +30,20 @@
       </div>
 
       <div class="col-lg-6">
-        <form class="validate-form" action="/" method="post">
+        <form class="validate-form" action="/student" method="post">
           <span class="title">
-            Faculty Login
+            Student Login
           </span>
 
           <div class="facId">
-            <input class="input" type="text" name="lgnFacultyId" placeholder="ID" required>
+            <input class="input" type="text" name="lgnStudId" placeholder="ID" autocomplete="off" required>
             <span class="ID">
               <i class="fa fa-envelope" aria-hidden="true"></i>
             </span>
           </div>
 
           <div class="facPassword">
-            <input class="input" type="password" name="lgnFacultyPass" placeholder="Password" required>
+            <input class="input" type="password" name="lgnStudPass" placeholder="Password" required>
             <span class="password">
               <i class="fa fa-lock" aria-hidden="true"></i>
             </span>

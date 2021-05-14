@@ -4,7 +4,7 @@ module.exports = {
       return next();
     } else {
       req.flash("error_msg", "You need to first login");
-      res.redirect("/");
+      res.redirect("/faculty");
     }
   },
   forwardAuthenticated : (req,res,next) => {
@@ -12,7 +12,7 @@ module.exports = {
       return next();
     }
     else{
-      res.redirect("/dashboard");
+      res.redirect("/faculty/dashboard");
     }
   }
 }

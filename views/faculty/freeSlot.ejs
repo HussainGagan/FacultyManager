@@ -1,4 +1,4 @@
-<%- include("partials/header"); -%>
+<%- include("../partials/header"); -%>
 <div class="freeSlot">
 <% var mondayTime = [] %>
 <% var tuesdayTime = [] %>
@@ -7,7 +7,8 @@
 <% var fridayTime = [] %>
 <% var saturdayTime = [] %>
 
-  <div class="w3-container">
+  <div style="transform: translateY(-20px);" class="w3-container">
+    <h3 style="text-align: center; margin-bottom: 20px;">Free Slot of the week</h3>
   <table class="w3-table-all w3-centered w3-card-4">
     <tr>
       <th>Sr No.</th>
@@ -102,4 +103,4 @@
   </table>
   </div>
 </div>
-<%- include("partials/footer"); -%>
+<%- include("../partials/footer"); -%>

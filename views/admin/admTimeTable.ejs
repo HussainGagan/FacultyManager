@@ -1,12 +1,12 @@
-<%- include("partials/admHeader"); -%>
+<%- include("../partials/admHeader"); -%>
 
 <div class="admTimeTable">
-  <%- include("partials/error"); -%>
-<form class="admTime" action="/admTimeTable" method="post">
+  <%- include("../partials/error"); -%>
+<form class="admTime" action="/admin/timeTable" method="post">
 <div class="form-group timeTableFormGroup ">
-  <h3 class="hdnTime">Add Time-Table</h3>
-  <label for="facName">Faculty</label>
-      <select name="facName" id="facName" class="form-control">
+  <h3 class="hdnTime admHdg">Add Time-Table</h3>
+  <label class="admLbl" for="facName">Faculty</label>
+      <select name="facName" id="facName" class="form-control" required>
         <option selected>Choose a faculty</option>
         <% listOfFacName.forEach(function(facName){ %>
         <option value="<%=facName.name%>"><%=facName.name%></option>
@@ -14,8 +14,8 @@
       </select>
     </div>
     <div class="form-group timeTableFormGroup">
-      <label for="day">Day</label>
-          <select name="day" id="day" class="form-control">
+      <label class="admLbl" for="day">Day</label>
+          <select name="day" id="day" class="form-control" required>
             <option selected>Choose a Day</option>
             <option>Monday</option>
             <option>Tuesday</option>
@@ -26,8 +26,8 @@
           </select>
         </div>
         <div class="form-group timeTableFormGroup">
-          <label for="time">Time</label>
-          <select name="time" id="time" class="form-control">
+          <label class="admLbl" for="time">Time</label>
+          <select name="time" id="time" class="form-control" required>
             <option selected>Choose a Time</option>
             <option>8:30-9:25</option>
             <option>9:25-10:20</option>
@@ -42,16 +42,16 @@
             </div>
             <div class="form-row">
               <div class="form-group timeTableFormGroup col-md-6">
-                <label for="subject">Subject</label>
-                <input type="text" class="form-control" name="subject" placeholder="Subject Description">
+                <label class="admLbl" for="subject">Subject</label>
+                <input type="text" class="form-control" name="subject" placeholder="Subject Description" required>
               </div>
               <div class="form-group timeTableFormGroup col-md-6">
-                <label for="subLocation">Location</label>
-                <input type="text" class="form-control" name="subLocation" placeholder="Location">
+                <label class="admLbl" for="subLocation">Location</label>
+                <input type="text" class="form-control" name="subLocation" placeholder="Location" required>
               </div>
               </div>
               <button type="submit" class="btn btn-primary addTime">Add</button>
 </form>
 </div>
 
-<%- include("partials/admFooter"); -%>
+<%- include("../partials/admFooter"); -%>

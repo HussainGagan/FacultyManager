@@ -9,6 +9,12 @@
   <!-- sweet alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <style>
+/* body {
+    min-height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+} */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -25,6 +31,7 @@
     }
 
     body {
+      /* background-image: linear-gradient( #E55D87, #5FC3E4); */
       background-color: #F5F5F5;
     }
   </style>
@@ -38,7 +45,7 @@
 
   <div class="adminlgn">
     <form action="/admin" method="post">
-      <%- include("partials/error"); -%>
+      <%- include("../partials/error"); -%>
       <div class="form-group">
         <label for="adminId">Admin Id</label>
         <input type="number" name="adminId" class="form-control no"
